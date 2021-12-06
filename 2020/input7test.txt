@@ -1,0 +1,3 @@
+shiny gold bags contain 1 faded cyan bags, 1 striped aqua bags.
+faded cyan bags contain 1 striped aqua bags.
+striped aqua bags contain no other bags.
