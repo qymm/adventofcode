@@ -1,11 +1,13 @@
 from functions import *
 
 def loadFish(s):
+    #list method
     with open(s) as file:
         i = [int(x) for x in file.read().split(",")]
     return i
 
 def loadFishDict(s):
+    #fish should be in school, a dictionary is in order
     fishDict = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
     with open(s) as file:
         i = [int(x) for x in file.read().split(",")]
@@ -15,10 +17,9 @@ def loadFishDict(s):
     return fishDict
             
 if __name__ == "__main__":
-    fishies = loadFish("input6.txt")
-    #cooldowns = [c for c in fishies]
     
-    #PART1
+    #PART1 - List method.
+    fishies = loadFish("input6.txt")
     def tickFish(fishes):
         newFishies = []
         for idx,fish in enumerate(fishes):
@@ -29,13 +30,14 @@ if __name__ == "__main__":
                 fishes[idx] = 6
         return newFishies
 
-    print (fishies)
+    #print (fishies)
     for x in range(80):
         newFish = tickFish(fishies)
         fishies = fishies + newFish
         #print (fishies)
-    print (len(fishies))
+    print ("PART 1, FISH COUNT: ",len(fishies))
 
+    #PART2 - Dictionary method.
     def tickFishDict(fishies):
         newFishies = fishies[0]
         for x in range(1,9):
@@ -45,8 +47,8 @@ if __name__ == "__main__":
 
     fishies = loadFishDict("input6.txt")
     
-    print(fishies)
+    #print(fishies)
     for x in range(256):
         tickFishDict(fishies)
-        print(fishies)
-    print(sum([x for x in fishies.values()]))
+        #print(fishies)
+    print("PART 2, FISH COUNT: ",sum([x for x in fishies.values()]))
