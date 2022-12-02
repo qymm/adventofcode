@@ -1,3 +1,5 @@
+https://blueprintue.com/blueprint/1a93no99/
+
 Begin Object Class=/Script/BlueprintGraph.K2Node_FunctionEntry Name="K2Node_FunctionEntry_0"
    LocalVariables(0)=(VarName="input2ex",VarGuid=6FC1B2A442BCC8D79531DB9B24CAB858,VarType=(PinCategory="string"),FriendlyName="Input 2ex",Category=NSLOCTEXT("KismetSchema", "Default", "Default"),PropertyFlags=5)
    LocalVariables(1)=(VarName="input2",VarGuid=CA9B262A49F9303AD1A220A206641224,VarType=(PinCategory="string"),FriendlyName="Input 2",Category=NSLOCTEXT("KismetSchema", "Default", "Default"),PropertyFlags=5)
