@@ -1,4 +1,5 @@
 #https://adventofcode.com/2022/day/5
+#List comprehensions are sick.
 
 import sys
 
@@ -23,8 +24,6 @@ if __name__ == "__main__":
         for line in file:
             if line.strip(): #skip first blank line
                 x,y,z = [int(i) for i in line.split() if i.isnumeric()]
-                #instr = [int(i) for i in instr if i.isnumeric()]
-                #print(instr)
                 if solvePart2:
                     stacks[z-1].extend(stacks[y-1][x*-1:])
                     stacks[y-1] = stacks[y-1][:x*-1]
