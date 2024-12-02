@@ -34,38 +34,6 @@ if __name__ == "__main__":
         part1 = 0
         part2 = 0
 
-        def isGear(gearLoc):
-            idx, idy = gearLoc
-            #print("checking",idx,idy)
-            adjacent = [line[max(idx-1,0):min(idx+2,len(line))] for line in lines[max(idy-1,0):min(idy+2,len(lines))]]
-            counter = [x for x in ".".join(adjacent).replace("*",".").split(".") if x != ""]
-            #print(counter)
-            count = len(counter)
-            return count == 2
-        
-        def getRatio(gearLoc):
-            idx, idy = gearLoc
-            a = 0
-            b = 0
-            #print("\n")
-            ratio = -1
-            for l in [line[max(idx-3,0):min(idx+4,len(line))] for line in lines[max(idy-1,0):min(idy+2,len(lines))]]:
-                for num in [n for n in l.replace("*",".").strip('.').split('.') if n != "" and n not in symbols]:
-                    if l.find(num) != -1:
-                        if l.find(num) + len(num) >= 3  and l.find(num) <= 4:
-                            l.find(num)
-                            if ratio == -1:
-                                #print("found",num)
-                                ratio = int(num)
-                                a = int(num)
-                            else:
-                                ratio *= int(num)
-                                #print("found",num,"return")
-                                b = int(num)
-                                pairs.append((a,b))
-                                return ratio
-            return "oh fuck"
-
         for iY,line in enumerate(lines):
             for symbol in symbols:
                 line = ".".join(line.split(symbol))
@@ -96,25 +64,56 @@ if __name__ == "__main__":
         
         print(part1)
 
-        gearLocs = []
-        for idy,line in enumerate(lines):
-            idx = 0
-            while idx < len(line):
-                idx = line.find("*",idx)
-                #print(idx,idy)
-                if idx == -1:
-                    #print("breaking")
-                    break
-                if isGear((idx,idy)):
-                    #print("Gear at",(idx,idy))
-                    gearLocs.append((idx,idy))
+        def lookForGears(iX,iY,l):
+            found = set()
+            dirs = [(-1,-1),(0,-1),(1,-1),(-1,0),(1,0),(-1,1),(0,1),(1,1)]
+            for n in range(l):
+                for dir in dirs:
+                    dX, dY = dir
+                    x = iX+dX+n
+                    y = iY+dY
+                    if x < 0 or x >= len(lines[0]):
+                        continue
+                    elif y < 0 or y >= len(lines):
+                        continue
+                    elif lines[iY+dY][iX+dX+n] == '*':
+                        found.add((x,y))
+            if found:
+                return found
+                    
+
+        gears = {}
+        for iY,line in enumerate(lines):
+            temp = ""
+            nums = []
+            tempiX = -1
+            for iX,c in enumerate(line):
+                if c.isnumeric():
+                    if temp == '':
+                        tempiX = iX
+                    temp += c
                 else:
-                    s = list(line)
-                    s[idx] = "."
-                    line = "".join(s)
-                idx += 1
-        for gearLoc in gearLocs:
-            part2 += getRatio(gearLoc)
-        #print(gearLocs)
-        #print(pairs)
+                    if temp != "":
+                        nums.append ((tempiX,temp))
+                        #print (nums)
+                    temp = ''
+                    tempiX = -1
+            if temp != "" and tempiX != -1:
+                nums.append((tempiX,temp))
+            for num in nums:
+                found = lookForGears(num[0],iY,len(num[1]))
+                #print(num,found)
+                if found:
+                    for f in found:
+                        if gears.get(f):
+                            gears[f].append(num[1])
+                        else:
+                            gears[f] = [num[1]]
+            print (gears)
+
+        for gear in gears:
+            if len(gears[gear]) == 2:
+                #print (int(gears[gear][0]),"*",int(gears[gear][1]))
+                part2 += int(gears[gear][0]) * int(gears[gear][1])
+
         print(part2)
