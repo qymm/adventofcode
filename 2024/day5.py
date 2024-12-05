@@ -60,8 +60,8 @@ if __name__ == "__main__":
         for b in bad: # fixing the bad updates
             tempRules = {}
             for k in ruleDict.keys():
-                if k in b:
-                    tempRules[k] = [x for x in ruleDict[k] if x in b]
+                if k in b: # get only rules for numbers in the current update
+                    tempRules[k] = [x for x in ruleDict[k] if x in b] # make a temp rule dict, only including numbers in current update
             tempKey = createKey(tempRules)
             fixed.append(tempKey) # the key just turns out to be the entire update after all of that!
 
