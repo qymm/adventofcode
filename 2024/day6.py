@@ -109,7 +109,7 @@ if __name__ == "__main__":
                 testGrid = backupgrid.copy()
                 testGrid[idy] = testGrid[idy][:idx] + "#" + testGrid[idy][idx + 1:] # test replacing with an obstacle
                 
-                backupGuard,(backupX,backupY) = getStartingGuardPos(backupgrid) # replace the guard if we have accidentally replaced him
+                backupGuard,(backupX,backupY) = getStartingGuardPos(backupgrid) # replace the guard if we have accidentally replaced her
                 testGrid[backupY] = testGrid[backupY][:backupX] + backupGuard + testGrid[backupY][backupX + 1:]
 
                 grid = testGrid.copy()
